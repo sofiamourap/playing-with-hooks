@@ -3,6 +3,7 @@ import Card from "../UI/Card/Card";
 import classes from "./Login.module.css";
 import Button from "../UI/Button/Button";
 
+//create the reducer function for the email
 const emailReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
     return { value: action.val, isValid: action.val.includes("@") };
@@ -13,6 +14,7 @@ const emailReducer = (state, action) => {
   return { value: "", isValid: false };
 };
 
+//create the reducer function for the password
 const passwordReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
     return { value: action.val, isValid: action.val.trim().length > 6 };
@@ -24,12 +26,14 @@ const passwordReducer = (state, action) => {
 };
 
 export default function Login({ onLogin }) {
+  //the states are no longer necessary because the reducer is doing all the check
   // const [enteredEmail, setEnteredEmail] = useState("");
   // const [emailIsValid, setEmailIsValid] = useState();
   // const [enteredPassword, setEnteredPassword] = useState("");
   // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
+  //1sr param = function and 2nd is the initial state
   const [email, dispatchEmail] = useReducer(emailReducer, {
     value: "",
     isValid: null,
@@ -53,6 +57,7 @@ export default function Login({ onLogin }) {
     return () => {
       clearTimeout(identifier);
     };
+    //check only for the key of the object that we need to make it re-render
   }, [emailIsValid, passwordIsValid]);
 
   const emailChangeHandler = (event) => {
